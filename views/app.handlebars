@@ -10,18 +10,121 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
   <link rel="shortcut icon" href="/assets/img/favicon.png"/>
   <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+    <script>
+    window.onload = init;
+    //variables for the arrays of each name and also the iterators of each array
+    var bodyArr,lArmArr,rArmArr,lLegArr,rLegArr;
+    var bodI,laI,raI,llI,rlI;
+    var c,ctx;
+    var image,imageLA;
+
+    function click(){
+      if(bodI < bodyArr.length - 1){
+        bodI += 1;
+        image.src = '/assets/' + bodyArr[bodI];
+        renderAll();
+
+      }
+      else{
+        bodI = 0;
+        image.src = '/assets/' + bodyArr[bodI];
+        renderAll();
+      }
+    }
+    //Second function for button but one function will handle all changes for final piece
+        function click2(){
+      if(laI < lArmArr.length - 1){
+        laI += 1;
+        imageLA.src = '/assets/' + lArmArr[laI];
+        renderAll();
+      }
+      else{
+        laI = 0;
+        imageLA.src = '/assets/' + lArmArr[laI];
+        renderAll();
+      }
+    }
+
+    function init(){
+      bodyArr = ["monster1.png","monster2.png"];
+      lArmArr = ["monsterLA1.png","monsterLA2.png"];
+      rArmArr = ["monsterRA1.png"];
+      lLegArr = ["monsterLL1.png"];
+      rLegArr = ["monsterRL1.png"];
+      c = document.getElementById("myCanvas");
+      ctx = c.getContext("2d");
+      bodI = 0;
+      laI = 0;
+      raI = 0;
+      llI = 0;
+      rlI = 0;
+      renderAll();
+      document.getElementById("bodyButton").onclick = function() {click()};
+      document.getElementById("leftArmButton").onclick = function() {click2()};
+
+    }
+
+    function renderAll(){
+      //clear canvas before placing new parts
+      ctx.clearRect(0,0,200,200);
+      //Image Left Arm
+      imageLA = new Image();
+      imageLA.src = '/assets/' + lArmArr[laI];
+      imageLA.onload = () => {
+      ctx.drawImage(imageLA, 0, 50);
+      }
+
+      //Image Right Arm
+      var imageRA = new Image();
+      imageRA.src = '/assets/' + rArmArr[raI];
+      imageRA.onload = () => {
+      ctx.drawImage(imageRA, 100, 50);
+      }
+
+      //Image Left Leg
+      var imageLL = new Image();
+      imageLL.src = '/assets/' + lLegArr[llI];
+      imageLL.onload = () => {
+      ctx.drawImage(imageLL, 40, 100);
+      }
+
+        //Image Right Leg
+      var imageRL = new Image();
+      imageRL.src = '/assets/' + rLegArr[rlI];
+      imageRL.onload = () => {
+      ctx.drawImage(imageRL, 60, 100);
+      }
+
+       //Image Body
+      image = new Image();
+      image.src = '/assets/' + bodyArr[bodI];
+      image.onload = () => {
+      ctx.drawImage(image, 50, 50);
+      }
+    }
+
+  </script>
 </head>
 <body>
   <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>
-  <section id="makeDomo">
+  <!--<section id="makeDomo">
   </section>
   <section id="domos">
-  </section>
+  </section> -->
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
   </div>
+    <canvas id="myCanvas" width="400" height="200">
+
+  </canvas>
+  <br>
+  <button id="bodyButton"> Change Body </button>
+  <button id="leftArmButton"> Change Left Arm </button>
+  <button id="rightArmButton"> Change Right Arm </button>
+
+
   <script src="/assets/bundle.js"></script>
 </body>
 </html>
