@@ -32,7 +32,7 @@
       }
     }
     //Second function for button but one function will handle all changes for final piece
-        function click2(){
+    function click2(){
       if(laI < lArmArr.length - 1){
         laI += 1;
         imageLA.src = '/assets/' + lArmArr[laI];
@@ -45,10 +45,23 @@
       }
     }
 
+    function click3(){
+      if(raI < rArmArr.length - 1){
+        raI += 1;
+        imageRA.src = '/assets/' + rArmArr[raI];
+        renderAll();
+      }
+      else{
+        raI = 0;
+        imageRA.src = '/assets/' + rArmArr[raI];
+        renderAll();
+      }
+    }
+
     function init(){
       bodyArr = ["monster1.png","monster2.png"];
       lArmArr = ["monsterLA1.png","monsterLA2.png"];
-      rArmArr = ["monsterRA1.png"];
+      rArmArr = ["monsterRA1.png","monsterRA2.png"];
       lLegArr = ["monsterLL1.png"];
       rLegArr = ["monsterRL1.png"];
       c = document.getElementById("myCanvas");
@@ -147,7 +160,7 @@
   </nav>
 
   <section id="makeDomo">
-  </section>
+  </section> 
   <section id="domos">
   </section> 
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
