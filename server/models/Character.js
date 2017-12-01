@@ -8,7 +8,6 @@ let CharacterModel = {};
 // converts string ID to real mongo ID
 
 const convertId = mongoose.Types.ObjectId;
-const setName = (name) => _.escape(name).trim();
 
 const CharacterSchema = new mongoose.Schema({
   bodySrc: {
@@ -34,12 +33,12 @@ const CharacterSchema = new mongoose.Schema({
   rightLegSrc: {
     type: String,
     required: true,
-  },      
+  },
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Account',
-  }, 
+  },
 });
 
 CharacterSchema.statics.toAPI = (doc) => ({

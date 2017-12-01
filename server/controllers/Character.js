@@ -3,13 +3,13 @@ const Character = models.Character;
 
 
 const makerPage = (req, res) => {
-  Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  Character.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'AN erro occured' });
     }
 
-    return res.render('app', { csrfToken: req.csrfToken(), domos: docs });
+    return res.render('app', { csrfToken: req.csrfToken(), characters: docs });
   });
 };
 
@@ -19,7 +19,7 @@ const makeCharacter = (req, res) => {
     leftLegSrc: req.body.leftLegSrc,
     rightLegSrc: req.body.rightLegSrc,
     leftArmSrc: req.body.leftArmSrc,
-    rightArmSrc: req.body.rightArmSrc ,
+    rightArmSrc: req.body.rightArmSrc,
     owner: req.session.account._id,
   };
 
