@@ -1,5 +1,6 @@
 const models = require('../models');
-const Domo = models.Domo;
+const Character = models.Character;
+
 
 const makerPage = (req, res) => {
   Domo.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
@@ -12,34 +13,32 @@ const makerPage = (req, res) => {
   });
 };
 
-const makeDomo = (req, res) => {
-  if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: 'RAWR! Both name and age are required' });
-  }
-
-  const domoData = {
-    name: req.body.name,
-    age: req.body.age,
-    level: req.body.level,
+const makeCharacter = (req, res) => {
+  const CharacterData = {
+    bodySrc: req.body.bodySrc,
+    leftLegSrc: req.body.leftLegSrc,
+    rightLegSrc: req.body.rightLegSrc,
+    leftArmSrc: req.body.leftArmSrc,
+    rightArmSrc: req.body.rightArmSrc ,
     owner: req.session.account._id,
   };
 
-  const newDomo = new Domo.DomoModel(domoData);
+  const newCharacter = new Character.CharacterModel(CharacterData);
 
-  const domoPromise = newDomo.save();
+  const characterPromise = newCharacter.save();
 
-  domoPromise.then(() => res.json({ redirect: '/maker' }));
+  characterPromise.then(() => res.json({ redirect: '/maker' }));
 
-  domoPromise.catch((err) => {
+  characterPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Domo already exists.' });
+      return res.status(400).json({ error: 'Char already exists.' });
     }
 
     return res.status(400).json({ error: 'An error occured' });
   });
 
-  return domoPromise;
+  return charPromise;
 };
 
 const getDomos = (request, response) => {
@@ -58,4 +57,4 @@ const getDomos = (request, response) => {
 
 module.exports.makerPage = makerPage;
 module.exports.getDomos = getDomos;
-module.exports.make = makeDomo;
+module.exports.makeCharacter = makeCharacter;

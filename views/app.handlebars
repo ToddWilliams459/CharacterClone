@@ -16,7 +16,7 @@
     var bodyArr,lArmArr,rArmArr,lLegArr,rLegArr;
     var bodI,laI,raI,llI,rlI;
     var c,ctx;
-    var image,imageLA;
+    var image,imageLA,imageRA,imageLL,imageRL;
 
     function click(){
       if(bodI < bodyArr.length - 1){
@@ -59,10 +59,45 @@
       llI = 0;
       rlI = 0;
       renderAll();
+      const getToken = () => {
+        return new Promise ((resolve,reject) => {
+          sendAjax('GET', '/getToken', null, (result) => {
+            resolve(result.csrfToken);
+
+            reject("error");
+          })
+        })
+      };
+
       document.getElementById("bodyButton").onclick = function() {click()};
       document.getElementById("leftArmButton").onclick = function() {click2()};
-
+     
+      document.getElementById("submitCharacter").onclick = function (e) {
+        e.preventDefault();
+        getToken().then( (token) => {
+          $.ajax({
+          type:"POST",
+          url:"/submitCharacter",
+          data:{ 
+            _csrf: token,
+            bodySrc: image.src,
+            leftArmSrc: imageLA.src,
+            rightArmSrc: imageRA.src,
+            leftLegSrc: imageLL.src,
+            rightLegSrc: imageRL.src
+          },
+          success: function(result) {
+            alert('ok');
+          },
+          error: function(result) {
+            alert('error');
+            }
+          });
+        })
+      } 
+    
     }
+
 
     function renderAll(){
       //clear canvas before placing new parts
@@ -75,21 +110,21 @@
       }
 
       //Image Right Arm
-      var imageRA = new Image();
+      imageRA = new Image();
       imageRA.src = '/assets/' + rArmArr[raI];
       imageRA.onload = () => {
       ctx.drawImage(imageRA, 100, 50);
       }
 
       //Image Left Leg
-      var imageLL = new Image();
+      imageLL = new Image();
       imageLL.src = '/assets/' + lLegArr[llI];
       imageLL.onload = () => {
       ctx.drawImage(imageLL, 40, 100);
       }
 
         //Image Right Leg
-      var imageRL = new Image();
+      imageRL = new Image();
       imageRL.src = '/assets/' + rLegArr[rlI];
       imageRL.onload = () => {
       ctx.drawImage(imageRL, 60, 100);
@@ -106,13 +141,14 @@
   </script>
 </head>
 <body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
+  <nav><!--<a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>-->
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>
-  <!--<section id="makeDomo">
+
+  <section id="makeDomo">
   </section>
   <section id="domos">
-  </section> -->
+  </section> 
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
   </div>
@@ -123,6 +159,8 @@
   <button id="bodyButton"> Change Body </button>
   <button id="leftArmButton"> Change Left Arm </button>
   <button id="rightArmButton"> Change Right Arm </button>
+  <br>
+  <button id="submitCharacter"> Submit Character </button>
 
 
   <script src="/assets/bundle.js"></script>

@@ -32,7 +32,6 @@ const DomoForm = (props) => {
 		<input id="domoLevel" type="text" name="level" placeholder="Domo Level" />
 		<input type="hidden" name="_csrf" value={props.csrf} />
 		<input className="makeDomoSubmit" type="submit" value="Make Domo" />
-		<input className="removeDomo" type="button" value="Delete Domo"  />
 		</form>
 		);
 };
