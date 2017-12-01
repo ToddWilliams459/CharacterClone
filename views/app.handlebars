@@ -59,7 +59,7 @@
       llI = 0;
       rlI = 0;
       renderAll();
-      const getToken = () => {
+      const getKen = () => {
         return new Promise ((resolve,reject) => {
           sendAjax('GET', '/getToken', null, (result) => {
             resolve(result.csrfToken);
@@ -74,11 +74,11 @@
      
       document.getElementById("submitCharacter").onclick = function (e) {
         e.preventDefault();
-        getToken().then( (token) => {
+        getKen().then( (token) => {
           $.ajax({
           type:"POST",
           url:"/submitCharacter",
-          data:{ 
+          data:{
             _csrf: token,
             bodySrc: image.src,
             leftArmSrc: imageLA.src,
@@ -90,6 +90,7 @@
             alert('ok');
           },
           error: function(result) {
+            console.log(result);
             alert('error');
             }
           });

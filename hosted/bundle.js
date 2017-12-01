@@ -45,25 +45,24 @@ var DomoForm = function DomoForm(props) {
 		),
 		React.createElement("input", { id: "domoLevel", type: "text", name: "level", placeholder: "Domo Level" }),
 		React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-		React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" }),
-		React.createElement("input", { className: "removeDomo", type: "button", value: "Delete Domo" })
+		React.createElement("input", { className: "makeDomoSubmit", type: "submit", value: "Make Domo" })
 	);
 };
 
 var DomoList = function DomoList(props) {
-	if (props.domos.length === 0) {
+	if (props.characters.length === 0) {
 		return React.createElement(
 			"div",
 			{ className: "domoList" },
 			React.createElement(
 				"h3",
 				{ className: "emptyDomo" },
-				" No Domos yet "
+				" No Characters yet "
 			)
 		);
 	}
 
-	var domoNodes = props.domos.map(function (domo) {
+	var characterNodes = props.characters.map(function (domo) {
 		return React.createElement(
 			"div",
 			{ key: domo._id, className: "domo" },
@@ -71,22 +70,36 @@ var DomoList = function DomoList(props) {
 			React.createElement(
 				"h3",
 				{ className: "domoName" },
-				"Name: ",
-				domo.name,
+				"Body Src: ",
+				domo.bodySrc,
 				" "
 			),
 			React.createElement(
 				"h3",
 				{ className: "domoAge" },
-				"Age: ",
-				domo.age,
+				"Left Leg Src: ",
+				domo.leftLegSrc,
 				" "
 			),
 			React.createElement(
 				"h3",
 				{ className: "domoLevel" },
-				"Level: ",
-				domo.level,
+				"Right leg Src: ",
+				domo.rightLegSrc,
+				" "
+			),
+			React.createElement(
+				"h3",
+				{ className: "domoAge" },
+				"Left Arm Src: ",
+				domo.leftArmSrc,
+				" "
+			),
+			React.createElement(
+				"h3",
+				{ className: "domoLevel" },
+				"Right Arm Src: ",
+				domo.rightArmSrc,
 				" "
 			)
 		);
@@ -95,20 +108,21 @@ var DomoList = function DomoList(props) {
 	return React.createElement(
 		"div",
 		{ className: "domoList" },
-		domoNodes
+		characterNodes
 	);
 };
 
 var loadDomosFromServer = function loadDomosFromServer() {
-	sendAjax('GET', '/getDomos', null, function (data) {
-		ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector("#domos"));
+	sendAjax('GET', '/getCharacters', null, function (data) {
+		ReactDOM.render(React.createElement(DomoList, { characters: data.characters }), document.querySelector("#domos"));
 	});
 };
 
 var setup = function setup(csrf) {
+
 	ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector("#makeDomo"));
 
-	ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector("#domos"));
+	ReactDOM.render(React.createElement(DomoList, { characters: [] }), document.querySelector("#domos"));
 
 	loadDomosFromServer();
 };
