@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const _ = require('underscore');
 
 let CharacterModel = {};
 
@@ -55,7 +54,8 @@ CharacterSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return CharacterModel.find(search).select('bodySrc leftArmSrc rightArmSrc leftLegSrc rightLegSrc').exec(callback);
+  return CharacterModel.find(search).select(
+    'bodySrc leftArmSrc rightArmSrc leftLegSrc rightLegSrc').exec(callback);
 };
 
 CharacterModel = mongoose.model('Character', CharacterSchema);

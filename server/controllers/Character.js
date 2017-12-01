@@ -1,9 +1,8 @@
 const models = require('../models');
 const Character = models.Character;
 
-
 const makerPage = (req, res) => {
-  Character.DomoModel.findByOwner(req.session.account._id, (err, docs) => {
+  Character.CharacterModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'AN erro occured' });
