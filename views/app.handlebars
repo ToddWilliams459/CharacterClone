@@ -87,6 +87,8 @@
      
       document.getElementById("submitCharacter").onclick = function (e) {
         e.preventDefault();
+        var dataUrl = c.toDataURL();
+
         getKen().then( (token) => {
           $.ajax({
           type:"POST",

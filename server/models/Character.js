@@ -15,7 +15,7 @@ const CharacterSchema = new mongoose.Schema({
   },
 
   leftArmSrc: {
-    type: String,
+    type:  String,
     required: true,
   },
 

@@ -17,41 +17,11 @@ var DomoList = function DomoList(props) {
 		return React.createElement(
 			"div",
 			{ key: domo._id, className: "domo" },
-			React.createElement(
-				"h3",
-				{ className: "characterName" },
-				"Body: ",
-				domo.bodySrc,
-				" "
-			),
-			React.createElement(
-				"h3",
-				{ className: "characterName" },
-				"LeftLeg: ",
-				domo.leftLegSrc,
-				" "
-			),
-			React.createElement(
-				"h3",
-				{ className: "characterName" },
-				"RightLeg: ",
-				domo.rightLegSrc,
-				" "
-			),
-			React.createElement(
-				"h3",
-				{ className: "characterName" },
-				"LeftArm: ",
-				domo.leftArmSrc,
-				" "
-			),
-			React.createElement(
-				"h3",
-				{ className: "characterName" },
-				"RightArm: ",
-				domo.rightArmSrc,
-				" "
-			)
+			React.createElement("img", { src: domo.bodySrc, alt: "Character Body" }),
+			React.createElement("img", { src: domo.leftLegSrc, alt: "Character Left Leg" }),
+			React.createElement("img", { src: domo.rightLegSrc, alt: "Character Right Leg" }),
+			React.createElement("img", { src: domo.leftArmSrc, alt: "Character Left Arm" }),
+			React.createElement("img", { src: domo.rightArmSrc, alt: "Character Right Arm" })
 		);
 	});
 

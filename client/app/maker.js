@@ -10,11 +10,11 @@ const DomoList = function(props) {
 	const characterNodes = props.characters.map(function(domo) {
 		return (
 			<div key={domo._id} className="domo">
-				<h3 className="characterName">Body: {domo.bodySrc} </h3>
-				<h3 className="characterName">LeftLeg: {domo.leftLegSrc} </h3>
-				<h3 className="characterName">RightLeg: {domo.rightLegSrc} </h3>
-				<h3 className="characterName">LeftArm: {domo.leftArmSrc} </h3>
-				<h3 className="characterName">RightArm: {domo.rightArmSrc} </h3>
+				<img src={domo.bodySrc} alt ="Character Body"></img>
+				<img src={domo.leftLegSrc} alt ="Character Left Leg"></img>
+				<img src={domo.rightLegSrc} alt ="Character Right Leg"></img>
+				<img src={domo.leftArmSrc} alt ="Character Left Arm"></img>
+				<img src={domo.rightArmSrc} alt ="Character Right Arm"></img>
 			</div>
 			);
 	});
