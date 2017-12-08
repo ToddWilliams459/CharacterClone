@@ -17,11 +17,56 @@ var DomoList = function DomoList(props) {
 		return React.createElement(
 			"div",
 			{ key: domo._id, className: "domo" },
-			React.createElement("img", { src: domo.bodySrc, alt: "Character Body" }),
-			React.createElement("img", { src: domo.leftLegSrc, alt: "Character Left Leg" }),
-			React.createElement("img", { src: domo.rightLegSrc, alt: "Character Right Leg" }),
-			React.createElement("img", { src: domo.leftArmSrc, alt: "Character Left Arm" }),
-			React.createElement("img", { src: domo.rightArmSrc, alt: "Character Right Arm" })
+			React.createElement(
+				"div",
+				{ id: "characterBody" },
+				React.createElement(
+					"p",
+					null,
+					"Character Body "
+				),
+				React.createElement("img", { src: domo.bodySrc, alt: "Character Body" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterLL" },
+				React.createElement(
+					"p",
+					null,
+					" Character Left Leg "
+				),
+				React.createElement("img", { src: domo.leftLegSrc, alt: "Character Left Leg" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterRL" },
+				React.createElement(
+					"p",
+					null,
+					" Character Right Leg "
+				),
+				React.createElement("img", { src: domo.rightLegSrc, alt: "Character Right Leg" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterLA" },
+				React.createElement(
+					"p",
+					null,
+					" Character Left Arm "
+				),
+				React.createElement("img", { src: domo.leftArmSrc, alt: "Character Left Arm" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterRA" },
+				React.createElement(
+					"p",
+					null,
+					" Character Right Arm "
+				),
+				React.createElement("img", { src: domo.rightArmSrc, alt: "Character Right Arm" })
+			)
 		);
 	});
 
@@ -40,9 +85,27 @@ var loadDomosFromServer = function loadDomosFromServer() {
 
 var setup = function setup(csrf) {
 
-	//ReactDOM.render(
+	ReactDOM.render(
 	//	<DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
-	//);
+	React.createElement(
+		"div",
+		null,
+		React.createElement(
+			"button",
+			{ id: "bodyButton", onClick: click },
+			" Change Body "
+		),
+		React.createElement(
+			"button",
+			{ id: "rightArmButton", onClick: click2 },
+			" Change Legs "
+		),
+		React.createElement(
+			"button",
+			{ id: "leftArmButton", onClick: click3 },
+			" Change Arms "
+		)
+	), document.getElementById('area'));
 
 	ReactDOM.render(React.createElement(DomoList, { characters: [] }), document.querySelector("#domos"));
 

@@ -36,24 +36,30 @@
       if(laI < lArmArr.length - 1){
         laI += 1;
         imageLA.src = '/assets/' + lArmArr[laI];
+        imageRA.src = '/assets/' + rArmArr[laI];
         renderAll();
       }
       else{
         laI = 0;
         imageLA.src = '/assets/' + lArmArr[laI];
+        imageRA.src = '/assets/' + rArmArr[laI];
+
         renderAll();
       }
     }
 
     function click3(){
-      if(raI < rArmArr.length - 1){
-        raI += 1;
-        imageRA.src = '/assets/' + rArmArr[raI];
+      if(llI < lLegArr.length - 1){
+        llI += 1;
+        imageLL.src = '/assets/' + lLegArr[llI];
+        imageRL.src = '/assets/' + lLegArr[llI];        
         renderAll();
       }
       else{
-        raI = 0;
-        imageRA.src = '/assets/' + rArmArr[raI];
+        llI = 0;
+        imageLL.src = '/assets/' + lLegArr[llI];
+        imageRL.src = '/assets/' + lLegArr[llI];        
+
         renderAll();
       }
     }
@@ -62,8 +68,8 @@
       bodyArr = ["monster1.png","monster2.png"];
       lArmArr = ["monsterLA1.png","monsterLA2.png"];
       rArmArr = ["monsterRA1.png","monsterRA2.png"];
-      lLegArr = ["monsterLL1.png"];
-      rLegArr = ["monsterRL1.png"];
+      lLegArr = ["monsterLL1.png","monsterLL2.png"];
+      rLegArr = ["monsterRL1.png","monsterRL2.png"];
       c = document.getElementById("myCanvas");
       ctx = c.getContext("2d");
       bodI = 0;
@@ -82,13 +88,15 @@
         })
       };
 
-      document.getElementById("bodyButton").onclick = function() {click()};
-      document.getElementById("leftArmButton").onclick = function() {click2()};
-     
+      //document.getElementById("bodyButton").onclick = function() {click()};
+      //document.getElementById("leftArmButton").onclick = function() {click2()};
+      //document.getElementById("rightArmButton").onclick = function() {click3()};
+
       document.getElementById("submitCharacter").onclick = function (e) {
         e.preventDefault();
         var dataUrl = c.toDataURL();
-
+        
+        
         getKen().then( (token) => {
           $.ajax({
           type:"POST",
@@ -127,7 +135,7 @@
 
       //Image Right Arm
       imageRA = new Image();
-      imageRA.src = '/assets/' + rArmArr[raI];
+      imageRA.src = '/assets/' + rArmArr[laI];
       imageRA.onload = () => {
       ctx.drawImage(imageRA, 100, 50);
       }
@@ -141,7 +149,7 @@
 
         //Image Right Leg
       imageRL = new Image();
-      imageRL.src = '/assets/' + rLegArr[rlI];
+      imageRL.src = '/assets/' + rLegArr[llI];
       imageRL.onload = () => {
       ctx.drawImage(imageRL, 60, 100);
       }
@@ -168,16 +176,19 @@
   <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
     <h3><span id="errorMessage"></span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
   </div>
+  <div id="canvas">
     <canvas id="myCanvas" width="400" height="200">
 
   </canvas>
+</div>
   <br>
-  <button id="bodyButton"> Change Body </button>
-  <button id="leftArmButton"> Change Left Arm </button>
-  <button id="rightArmButton"> Change Right Arm </button>
-  <br>
-  <button id="submitCharacter"> Submit Character </button>
+  <div id="area"></div>
 
+
+  <br>
+  <div id="canvas">
+  <button id="submitCharacter"> Submit Character </button>
+</div>
 
   <script src="/assets/bundle.js"></script>
 </body>

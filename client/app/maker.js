@@ -10,11 +10,28 @@ const DomoList = function(props) {
 	const characterNodes = props.characters.map(function(domo) {
 		return (
 			<div key={domo._id} className="domo">
-				<img src={domo.bodySrc} alt ="Character Body"></img>
-				<img src={domo.leftLegSrc} alt ="Character Left Leg"></img>
-				<img src={domo.rightLegSrc} alt ="Character Right Leg"></img>
-				<img src={domo.leftArmSrc} alt ="Character Left Arm"></img>
-				<img src={domo.rightArmSrc} alt ="Character Right Arm"></img>
+				<div id="characterBody">
+					<p>Character Body </p>
+					<img  src={domo.bodySrc} alt ="Character Body"></img>
+				</div>
+				<div id="characterLL">
+					<p> Character Left Leg </p>
+					<img  src={domo.leftLegSrc} alt ="Character Left Leg"></img>
+				</div>
+				<div id="characterRL">
+					<p> Character Right Leg </p>
+					<img  src={domo.rightLegSrc} alt ="Character Right Leg"></img>
+
+				</div>
+				<div id="characterLA">
+					<p> Character Left Arm </p>
+					<img  src={domo.leftArmSrc} alt ="Character Left Arm"></img>
+
+				</div>
+				<div id="characterRA">
+					<p> Character Right Arm </p>
+					<img  src={domo.rightArmSrc} alt ="Character Right Arm"></img>
+				</div>												
 			</div>
 			);
 	});
@@ -36,9 +53,14 @@ const loadDomosFromServer = () => {
 
 const setup = function(csrf) {
 	
-	//ReactDOM.render(
+	ReactDOM.render(
 	//	<DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
-	//);
+	<div>
+		<button id="bodyButton" onClick={click}> Change Body </button>
+		<button id="rightArmButton" onClick={click2}> Change Legs </button>
+ 		<button id="leftArmButton" onClick={click3}> Change Arms </button>
+	</div>,document.getElementById('area')
+	);
 
 	ReactDOM.render(
 		<DomoList characters={[]} />, document.querySelector("#domos")
