@@ -115,17 +115,18 @@ const onSubTest = (e) => {
 
 const ChangeWindow = (props) => {
 	return (
-		<form id="signupForm"
-			name="signupForm"
+		<form id="changePass"
+			name="changePass"
 			onSubmit={onSubTest}
-			action="/signup"
+			action="/changePass"
 			method="POST"
 			className="mainForm"
 		>
-
-		<label htmlFor="pass">Password: </label>
+		<label htmlFor="pass">Old Password: </label>
 		<input id="pass" type="password" name="pass" placeholder="password"/>
-		<label htmlFor="pass2">Password: </label>
+		<label htmlFor="pass">New Password: </label>
+		<input id="pass" type="password" name="pass" placeholder="password"/>
+		<label htmlFor="pass2">New Password: </label>
 		<input id="pass2" type="passwprd" name="pass2" placeholder="retype password"/>
 		<input type="hidden" name="_csrf" value={props.csrf} />
 		<input className="formSubmit" type="submit" value="Sign Up" />
@@ -154,7 +155,12 @@ const setup = function(csrf) {
 	domoButton.addEventListener("click", (e) => {
 		sendAjax('GET', '/getCharacters', null, (data) => {
 		ReactDOM.render(
-			<DomoSingle characters={data.characters} />,document.querySelector("#content")
+			<div>
+				<DomoSingle characters={data.characters} />
+				<h1>Current Hunger</h1>
+				<p id="currentHunger"> 100 </p>
+				<button id="hunger" onClick={feedCharacter}> Feed Character </button>
+			</div>,document.querySelector("#content")
 		);
 	});
 	});

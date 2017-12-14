@@ -183,23 +183,29 @@ var onSubTest = function onSubTest(e) {
 var ChangeWindow = function ChangeWindow(props) {
 	return React.createElement(
 		"form",
-		{ id: "signupForm",
-			name: "signupForm",
+		{ id: "changePass",
+			name: "changePass",
 			onSubmit: onSubTest,
-			action: "/signup",
+			action: "/changePass",
 			method: "POST",
 			className: "mainForm"
 		},
 		React.createElement(
 			"label",
 			{ htmlFor: "pass" },
-			"Password: "
+			"Old Password: "
+		),
+		React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+		React.createElement(
+			"label",
+			{ htmlFor: "pass" },
+			"New Password: "
 		),
 		React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
 		React.createElement(
 			"label",
 			{ htmlFor: "pass2" },
-			"Password: "
+			"New Password: "
 		),
 		React.createElement("input", { id: "pass2", type: "passwprd", name: "pass2", placeholder: "retype password" }),
 		React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
@@ -223,7 +229,26 @@ var setup = function setup(csrf) {
 
 	domoButton.addEventListener("click", function (e) {
 		sendAjax('GET', '/getCharacters', null, function (data) {
-			ReactDOM.render(React.createElement(DomoSingle, { characters: data.characters }), document.querySelector("#content"));
+			ReactDOM.render(React.createElement(
+				"div",
+				null,
+				React.createElement(DomoSingle, { characters: data.characters }),
+				React.createElement(
+					"h1",
+					null,
+					"Current Hunger"
+				),
+				React.createElement(
+					"p",
+					{ id: "currentHunger" },
+					" 100 "
+				),
+				React.createElement(
+					"button",
+					{ id: "hunger", onClick: feedCharacter },
+					" Feed Character "
+				)
+			), document.querySelector("#content"));
 		});
 	});
 
