@@ -7,6 +7,10 @@ const loginPage = (req, res) => {
 };
 
 
+const about = (req, res) => {
+res.redirect('/');
+};
+
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -96,3 +100,4 @@ module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
+module.exports.about = about;

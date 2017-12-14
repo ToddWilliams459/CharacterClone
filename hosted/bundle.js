@@ -83,11 +83,46 @@ var loadDomosFromServer = function loadDomosFromServer() {
 	});
 };
 
-var setup = function setup(csrf) {
+var createAboutWindow = function createAboutWindow(props) {
+	ReactDOM.render(React.createElement(
+		"div",
+		null,
+		React.createElement(
+			"h1",
+			null,
+			" About the creator "
+		)
+	), document.querySelector('#content'));
+};
 
-	ReactDOM.render(
-	//	<DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
-	React.createElement(
+var setup = function setup(csrf) {
+	var aboutButton = document.querySelector("#about");
+	var domoButton = document.querySelector("#domos");
+
+	domoButton.addEventListener("click", function (e) {
+		console.log(e);
+		console.log(domoButton);
+	});
+
+	aboutButton.addEventListener("click", function (e) {
+		e.preventDefault();
+		ReactDOM.render(React.createElement(
+			"div",
+			null,
+			React.createElement(
+				"h1",
+				null,
+				"About the Developer"
+			),
+			React.createElement("img", { src: "/assets/todd.jpg", alt: "todd pic", height: "175", width: "125" }),
+			React.createElement(
+				"p",
+				null,
+				"Todd Williams is a New Media Development student at the Rochester Insitute of Technology. "
+			)
+		), document.querySelector("#content"));
+	});
+	ReactDOM.render(React.createElement(
 		"div",
 		null,
 		React.createElement(

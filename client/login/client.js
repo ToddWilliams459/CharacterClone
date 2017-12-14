@@ -42,6 +42,7 @@ const setup = (csrf) => {
 	const loginButton = document.querySelector("#loginButton");
 	const signupButton = document.querySelector("#signupButton");
 
+
 	signupButton.addEventListener("click", (e) => {
 		e.preventDefault();
 		createSignupWindow(csrf);
@@ -103,6 +104,8 @@ const LoginWindow = (props) => {
 	</form>
 		);
 };
+
+
 
 const createSignupWindow = (csrf) => {
 	ReactDOM.render(

@@ -51,10 +51,34 @@ const loadDomosFromServer = () => {
 	});
 };
 
-const setup = function(csrf) {
-	
+const createAboutWindow = (props) => {
 	ReactDOM.render(
-	//	<DomoForm csrf={csrf} />, document.querySelector("#makeDomo")
+		<div>
+			<h1> About the creator </h1>
+		</div>, document.querySelector('#content')
+	);
+};
+
+const setup = function(csrf) {
+	const aboutButton = document.querySelector("#about");
+	const domoButton = document.querySelector("#domos");
+
+	domoButton.addEventListener("click", (e) => {
+		console.log(e);
+		console.log(domoButton);
+	});
+
+	aboutButton.addEventListener("click", (e) => {
+		e.preventDefault();
+		ReactDOM.render(
+			<div>
+				<h1>About the Developer</h1>
+				<img src="/assets/todd.jpg" alt="todd pic" height="175" width="125"></img>
+				<p>Todd Williams is a New Media Development student at the Rochester Insitute of Technology. </p>
+			</div>,document.querySelector("#content")
+		);
+	});
+	ReactDOM.render(
 	<div>
 		<button id="bodyButton" onClick={click}> Change Body </button>
 		<button id="rightArmButton" onClick={click2}> Change Legs </button>
