@@ -77,9 +77,90 @@ var DomoList = function DomoList(props) {
 	);
 };
 
+var DomoSingle = function DomoSingle(props) {
+	if (props.characters.length === 0) {
+		return React.createElement(
+			"div",
+			{ className: "domoList" },
+			React.createElement(
+				"h3",
+				{ className: "emptyDomo" },
+				" No Characters yet "
+			)
+		);
+	}
+
+	var characterNodes = props.characters.map(function (domo) {
+		return React.createElement(
+			"div",
+			{ key: domo._id, className: "domo" },
+			React.createElement(
+				"div",
+				{ id: "characterBody" },
+				React.createElement(
+					"p",
+					null,
+					"Character Body "
+				),
+				React.createElement("img", { src: domo.bodySrc, alt: "Character Body" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterLL" },
+				React.createElement(
+					"p",
+					null,
+					" Character Left Leg "
+				),
+				React.createElement("img", { src: domo.leftLegSrc, alt: "Character Left Leg" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterRL" },
+				React.createElement(
+					"p",
+					null,
+					" Character Right Leg "
+				),
+				React.createElement("img", { src: domo.rightLegSrc, alt: "Character Right Leg" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterLA" },
+				React.createElement(
+					"p",
+					null,
+					" Character Left Arm "
+				),
+				React.createElement("img", { src: domo.leftArmSrc, alt: "Character Left Arm" })
+			),
+			React.createElement(
+				"div",
+				{ id: "characterRA" },
+				React.createElement(
+					"p",
+					null,
+					" Character Right Arm "
+				),
+				React.createElement("img", { src: domo.rightArmSrc, alt: "Character Right Arm" })
+			)
+		);
+	});
+
+	return React.createElement(
+		"div",
+		{ className: "domoList" },
+		characterNodes[0]
+	);
+};
+
 var loadDomosFromServer = function loadDomosFromServer() {
 	sendAjax('GET', '/getCharacters', null, function (data) {
 		ReactDOM.render(React.createElement(DomoList, { characters: data.characters }), document.querySelector("#domos"));
+
+		//ReactDOM.render(
+		//	<DomoSingle characters={data.characters} />,document.querySelector("#test")
+		//);
 	});
 };
 
@@ -95,13 +176,55 @@ var createAboutWindow = function createAboutWindow(props) {
 	), document.querySelector('#content'));
 };
 
+var onSubTest = function onSubTest(e) {
+	console.log('submitted');
+};
+
+var ChangeWindow = function ChangeWindow(props) {
+	return React.createElement(
+		"form",
+		{ id: "signupForm",
+			name: "signupForm",
+			onSubmit: onSubTest,
+			action: "/signup",
+			method: "POST",
+			className: "mainForm"
+		},
+		React.createElement(
+			"label",
+			{ htmlFor: "pass" },
+			"Password: "
+		),
+		React.createElement("input", { id: "pass", type: "password", name: "pass", placeholder: "password" }),
+		React.createElement(
+			"label",
+			{ htmlFor: "pass2" },
+			"Password: "
+		),
+		React.createElement("input", { id: "pass2", type: "passwprd", name: "pass2", placeholder: "retype password" }),
+		React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
+		React.createElement("input", { className: "formSubmit", type: "submit", value: "Sign Up" })
+	);
+};
+
+var createChangeWindow = function createChangeWindow(csrf) {
+	ReactDOM.render(React.createElement(ChangeWindow, { csrf: csrf }), document.querySelector("#content"));
+};
+
 var setup = function setup(csrf) {
 	var aboutButton = document.querySelector("#about");
-	var domoButton = document.querySelector("#domos");
+	var domoButton = document.querySelector("#myCharPage");
+	var changeButton = document.querySelector("#changeButton");
+
+	changeButton.addEventListener("click", function (e) {
+		e.preventDefault();
+		createChangeWindow(csrf);
+	});
 
 	domoButton.addEventListener("click", function (e) {
-		console.log(e);
-		console.log(domoButton);
+		sendAjax('GET', '/getCharacters', null, function (data) {
+			ReactDOM.render(React.createElement(DomoSingle, { characters: data.characters }), document.querySelector("#content"));
+		});
 	});
 
 	aboutButton.addEventListener("click", function (e) {
@@ -122,6 +245,7 @@ var setup = function setup(csrf) {
 			)
 		), document.querySelector("#content"));
 	});
+
 	ReactDOM.render(React.createElement(
 		"div",
 		null,

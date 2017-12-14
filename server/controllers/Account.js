@@ -11,6 +11,10 @@ const about = (req, res) => {
 res.redirect('/');
 };
 
+const myCharPage = (req, res) => {
+res.redirect('/');
+};
+
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -101,3 +105,4 @@ module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
 module.exports.about = about;
+module.exports.myCharPage = myCharPage;
