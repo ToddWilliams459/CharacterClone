@@ -172,6 +172,8 @@ const setup = function(csrf) {
 				<h1>About the Developer</h1>
 				<img src="/assets/todd.jpg" alt="todd pic" height="175" width="125"></img>
 				<p>Todd Williams is a New Media Development student at the Rochester Insitute of Technology. </p>
+				<p>The Character Creator is a project where users will able to customize their own character. </p>
+				<p>Users can also feed their characters and take care of them. </p>
 			</div>,document.querySelector("#content")
 		);
 	});
